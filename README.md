@@ -11,9 +11,9 @@
 以下是实现功能的核心代码及解释：</br>
 ## 基本功能
 ### 一、添加时间戳</br>
-a.对notelist_item.xml做修改，增加一个TextView来显示时间
-b.增加一个时间处理工具类-DateUtil,进行时间格式转换
-c.在notelist.java 查询列增加修改时间一栏
+a.对notelist_item.xml做修改，增加一个TextView来显示时间</br>
+b.增加一个时间处理工具类-DateUtil,进行时间格式转换</br>
+c.在notelist.java 查询列增加修改时间一栏</br>
 代码如下：
 ```
 notelist_item.xml
@@ -36,10 +36,54 @@ notelist_item.xml
             NotePad.Notes.COLUMN_NAME_CREATE_DATE //2
 
     };
-    
+      
 ```
 ### 二、搜索功能</br>
+a.新建search.xml，添加SearchView用来实现搜索
+b.在NotesList.java中显示并获取SearchView控件，初始化控件
+c.设置搜索触发方法
+d.重新设置setListAdapter,实现实时搜索并显示搜索结果
 ```
+search.xml
+ <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="false"
+            android:queryHint="请输入搜索内容"
+            />
+
+NotesList.java
+ private void addSearchView() {
+        //给listview添加头部(search)
+        View v=View.inflate(this, R.layout.notelistheader,null);
+
+        getListView().addHeaderView(v);
+        //给搜索框添加搜索功能
+        final EditText et_Search=(EditText)v.findViewById(R.id.et_search);
+        et_Search.addTextChangedListener(new TextWatcherForSearch(){
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                super.onTextChanged(charSequence, i, i1, i2);
+                if (charSequence.length()!=0 && et_Search.getText().toString().length()!=0){
+                    String str_Search = et_Search.getText().toString();
+                    Cursor search_cursor = managedQuery(
+                            getIntent().getData(),            // Use the default content URI for the provider.
+                            PROJECTION,                       // Return the note ID and title for each note.
+                            NotePad.Notes.COLUMN_NAME_TITLE+" like ?",                             // No where clause, return all records.
+                            new String[]{"%"+str_Search+"%"},                    // No where clause, therefore no where column values.
+                            NotePad.Notes.DEFAULT_SORT_ORDER  // Use the default sort order.
+                    );
+                    adapter.swapCursor(search_cursor);/
+
+                }else {
+                    if (cursor!=null)/
+                    adapter.swapCursor(cursor);
+                }
+            }
+        });
+    }
+
 ```
 基本功能截图：</br>
 时间戳截图：</br>
