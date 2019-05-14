@@ -28,17 +28,17 @@
 ```
 设置背景：</br>
 ![设置背景1.jpg](https://i.loli.net/2019/05/14/5cda569834a8565117.jpg)
-![设置背景二.jpg](https://i.loli.net/2019/05/14/5cda569897c0377874.jpg)
+![设置背景二.jpg](https://i.loli.net/2019/05/14/5cda5aabc9f9878649.jpg)
 ![设置背景3.jpg](https://i.loli.net/2019/05/14/5cda5698f27a593399.jpg)</br>
 改变字体颜色大小：</br>
-![字体大小.jpg](https://i.loli.net/2019/05/14/5cda5699752d542946.jpg)
+![字体大小.jpg](https://i.loli.net/2019/05/14/5cda5699752d542946.jpg)</br>
 二、导出笔记</br>
 ```
 ```
 导出笔记截图：</br>
 ![导出笔记1.jpg](https://i.loli.net/2019/05/14/5cda58fd89d3538546.jpg)
 ![导出笔记3.jpg](https://i.loli.net/2019/05/14/5cda58fdb07e346931.jpg)
-![导出笔记2.jpg](https://i.loli.net/2019/05/14/5cda58fdae31361976.jpg)
+![导出笔记2.jpg](https://i.loli.net/2019/05/14/5cda58fdae31361976.jpg)</br>
 
 三、设置闹钟提醒</br>
 ```
@@ -46,7 +46,7 @@
 设置闹钟截图：</br>
 ![闹钟1.jpg](https://i.loli.net/2019/05/14/5cda596c5ca2f27821.jpg)
 ![闹钟2.jpg](https://i.loli.net/2019/05/14/5cda596c87fdb46948.jpg)
-![闹钟3.jpg](https://i.loli.net/2019/05/14/5cda596c8b78567419.jpg)
+![闹钟3.jpg](https://i.loli.net/2019/05/14/5cda596c8b78567419.jpg)</br>
 四、分享笔记</br>
 ```
 ```
