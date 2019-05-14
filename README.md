@@ -39,10 +39,10 @@ notelist_item.xml
       
 ```
 ### 二、搜索功能</br>
-a.新建search.xml，添加SearchView用来实现搜索
-b.在NotesList.java中显示并获取SearchView控件，初始化控件
-c.设置搜索触发方法
-d.重新设置setListAdapter,实现实时搜索并显示搜索结果
+a.新建search.xml，添加SearchView用来实现搜索</br>
+b.在NotesList.java中显示并获取SearchView控件，初始化控件</br>
+c.设置搜索触发方法</br>
+d.重新设置setListAdapter,实现实时搜索并显示搜索结果</br>
 ```
 search.xml
  <SearchView
@@ -93,7 +93,125 @@ NotesList.java
 ![搜索2.jpg](https://i.loli.net/2019/05/14/5cda5698053a480134.jpg)
 ##  附加功能
 ### 一、UI美化</br>
+a.使用SharedPreferences来保存用户最后一次选择的背景颜色</br>
+b.添加设置背景图标按钮，触发一个AlertDialog进行选择背景颜色</br>
+c.设置AlertDialog并绑定触发事件</br>
 ```
+back_color.xml
+ <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/colorY">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="更 改 背 景"
+            android:textSize="20dp"
+            android:textColor="@color/colorwit"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:clickable="true">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F0E68C"
+            android:id="@+id/colorYellow"
+            android:clickable="true"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    
+NoteList.java
+<!--在onCreate()中获取控件同时设置点击事件-->
+btn_color=(Button)findViewById(R.id.background);
+    btn_color.setOnClickListener(new ClickEvent());
+ <!--点击设置背景图标绑定事件-->
+  class ClickEvent implements View.OnClickListener {
+        @Override
+        public void onClick (View v)  {
+        }
+    }
+   <!--为每个TextView颜色设置监听事件-->
+ class ClickEvent implements View.OnClickListener {
+        @Override
+        public void onClick (View v)  {
+            final AlertDialog alertDialog = new AlertDialog.Builder(NotesList.this).create();
+            alertDialog.show();
+            Window window = alertDialog.getWindow();
+            window.setContentView(R.layout.back_color);
+            TextView color_colorYellow = (TextView)alertDialog.getWindow().findViewById(R.id.colorYellow);
+            color_colorYellow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    preferencescolor="#CDC673";//黄
+                    getListView().setBackgroundColor(Color.parseColor(preferencescolor));
+                    putColor(preferencescolor);//
+                    alertDialog.dismiss();
+                }
+            }); 
+        }
+    }
+ <!--放入sharepreferences-->
+  private void putColor(String color){
+        SharedPreferences preferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("color", color);
+        editor.commit();
+    }
+    
+    <!--设置字体-->
+    在editor_option_menu中增加字体大小颜色的属性
+    <item
+        android:id="@+id/font_size"
+        android:title="字体大小">
+        <!--子菜单-->
+        <menu>
+            <!--定义一组单选菜单项-->
+            <group>
+                <!--定义多个菜单项-->
+                <item
+                    android:id="@+id/font_10"
+                    android:title="10"
+                    />
+
+                <item
+                    android:id="@+id/font_16"
+                    android:title="16" />
+                <item
+                    android:id="@+id/font_20"
+                    android:title="20" />
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:title="字体颜色"
+        android:id="@+id/font_color"
+        >
+        <menu>
+            <!--定义一组普通菜单项-->
+            <group>
+                <!--定义两个菜单项-->
+                <item
+                    android:id="@+id/red_font"
+                    android:title="红色" />
+                <item
+                    android:title="黑色"
+                    android:id="@+id/black_font"/>
+            </group>
+        </menu>
+    
 ```
 设置背景：</br>
 ![设置背景1.jpg](https://i.loli.net/2019/05/14/5cda569834a8565117.jpg)
