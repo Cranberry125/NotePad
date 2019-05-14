@@ -17,7 +17,9 @@
 ```
 ```
 基本功能截图：</br>
+时间戳截图：</br>
 ![时间.jpg](https://i.loli.net/2019/05/14/5cda56974f7a247424.jpg)
+搜索截图：</br>
 ![搜索.jpg](https://i.loli.net/2019/05/14/5cda5697adc2755767.jpg)
 ![搜索2.jpg](https://i.loli.net/2019/05/14/5cda5698053a480134.jpg)
 #  附加功能
