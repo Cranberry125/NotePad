@@ -85,12 +85,14 @@ NotesList.java
     }
 
 ```
-基本功能截图：</br>
-时间戳截图：</br>
+
+#### 时间戳截图：</br>
 ![时间.jpg](https://i.loli.net/2019/05/14/5cda56974f7a247424.jpg)</br>
-搜索截图：</br>
+
+#### 搜索截图：</br>
 ![搜索.jpg](https://i.loli.net/2019/05/14/5cda5697adc2755767.jpg)
 ![搜索2.jpg](https://i.loli.net/2019/05/14/5cda5698053a480134.jpg)
+
 ##  附加功能
 ### 一、UI美化</br>
 a.使用SharedPreferences来保存用户最后一次选择的背景颜色</br>
@@ -213,31 +215,106 @@ btn_color=(Button)findViewById(R.id.background);
         </menu>
     
 ```
-设置背景：</br>
+#### 设置背景截图：</br>
 ![设置背景1.jpg](https://i.loli.net/2019/05/14/5cda569834a8565117.jpg)
 ![设置背景二.jpg](https://i.loli.net/2019/05/14/5cda5aabc9f9878649.jpg)
 ![设置背景3.jpg](https://i.loli.net/2019/05/14/5cda5698f27a593399.jpg)</br>
-改变字体颜色大小：</br>
+
+#### 改变字体颜色大小截图：</br>
 ![字体大小.jpg](https://i.loli.net/2019/05/14/5cda5699752d542946.jpg)</br>
+
 ### 二、导出笔记</br>
+a.在note_editor.xml添加item，添加监听事件
+b.在NoteEditor.java中onOptionsItemSelected添加case R.id.menu_output
+c.编写NoteOut.java用于导出笔记设置
+d.添加权限
 ```
+note_editor.xml添加item
+ <item android:id="@+id/menu_output"
+        android:title="@string/menu_output" />
+ 
+ NoteEditor.java中onOptionsItemSelected添加case R.id.menu_output
+  case R.id.menu_output:
+                outputNote();
+                break;
+        }
+AndroidManifest.xml
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
 ```
-导出笔记截图：</br>
+#### 导出笔记截图：</br>
 ![导出笔记1.jpg](https://i.loli.net/2019/05/14/5cda58fd89d3538546.jpg)
 ![导出笔记3.jpg](https://i.loli.net/2019/05/14/5cda58fdb07e346931.jpg)
 ![导出笔记2.jpg](https://i.loli.net/2019/05/14/5cda58fdae31361976.jpg)</br>
 
 ### 三、设置闹钟提醒</br>
+a.在search.xml添加Button
+b.在NoteList使用AlarmManager类，进行闹钟提示
+c.添加事件对话框，使用Calendar对象，显示当前事件，可设定提醒的时间点
+d.在AndroidManifest.xml添加NoteClock注册
 ```
+search.xml
+  <Button
+            android:id="@+id/notice"
+            android:layout_marginTop="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/clock"
+            android:layout_marginLeft="5dp"
+            android:onClick="alarmclock"/>
+            
+在NoteList使用AlarmManager类
+ private AlarmManager alarmManager;
+  class AlarmEvent implements View.OnClickListener {
+        @Override
+        public void onClick (View v)  {
+            Calendar currentTime = Calendar.getInstance();
+            new TimePickerDialog(NotesList.this, 0,
+                    new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker view,
+                                              int hourOfDay, int minute) {
+                            Calendar c = Calendar.getInstance();
+                            c.setTimeInMillis(System.currentTimeMillis());
+                            c.set(Calendar.HOUR, hourOfDay);
+                            c.set(Calendar.MINUTE, minute);
+                            //启动Activity
+                            alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
+                            Log.e("HEHE",c.getTimeInMillis()+"");
+                            Toast.makeText(NotesList.this, "闹钟设置完毕~", Toast.LENGTH_SHORT).show();
+                        }
+                    }, currentTime.get(Calendar.HOUR_OF_DAY), currentTime
+                    .get(Calendar.MINUTE), false).show();
+        }
 ```
-设置闹钟截图：</br>
+#### 设置闹钟截图：</br>
 ![闹钟1.jpg](https://i.loli.net/2019/05/14/5cda596c5ca2f27821.jpg)
 ![闹钟2.jpg](https://i.loli.net/2019/05/14/5cda596c87fdb46948.jpg)
 ![闹钟3.jpg](https://i.loli.net/2019/05/14/5cda596c8b78567419.jpg)</br>
-四、分享笔记</br>
+### 四、分享笔记</br>
+a.在list_context_menu.xml中添加item
+b.在NotesList.java的onContextItemSelected方法中添加share选项
 ```
+list_context_menu.xml
+<item android:id="@+id/context_share"
+        android:title="Share" />
+  NotesList.java
+   @Override
+    public boolean onContextItemSelected(MenuItem item) {
+    case R.id.context_share:
+                while(mCursor.moveToNext()){
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("text/plain");
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "分享");
+                    intent.putExtra(Intent.EXTRA_TEXT, "来自NotePad的分享："+mCursor.getString(1));
+                    startActivity(Intent.createChooser(intent, "分享到"));
+                }
+    
+    }
+    
+
 ```
-### 四、分享笔记截图：</br>
+#### 分享笔记截图：</br>
 ![分享笔记1.jpg](https://i.loli.net/2019/05/14/5cda599c83c5387057.jpg)
 ![分享笔记2.jpg](https://i.loli.net/2019/05/14/5cda599ca1b7844131.jpg)
 ![分享笔记3.jpg](https://i.loli.net/2019/05/14/5cda599cac73b83426.jpg)
