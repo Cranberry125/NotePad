@@ -224,10 +224,10 @@ btn_color=(Button)findViewById(R.id.background);
 ![字体大小.jpg](https://i.loli.net/2019/05/14/5cda5699752d542946.jpg)</br>
 
 ### 二、导出笔记</br>
-a.在note_editor.xml添加item，添加监听事件
-b.在NoteEditor.java中onOptionsItemSelected添加case R.id.menu_output
-c.编写NoteOut.java用于导出笔记设置
-d.添加权限
+a.在note_editor.xml添加item，添加监听事件</br>
+b.在NoteEditor.java中onOptionsItemSelected添加case R.id.menu_output</br>
+c.编写NoteOut.java用于导出笔记设置</br>
+d.添加权限</br>
 ```
 note_editor.xml添加item
  <item android:id="@+id/menu_output"
@@ -248,10 +248,10 @@ AndroidManifest.xml
 ![导出笔记2.jpg](https://i.loli.net/2019/05/14/5cda58fdae31361976.jpg)</br>
 
 ### 三、设置闹钟提醒</br>
-a.在search.xml添加Button
-b.在NoteList使用AlarmManager类，进行闹钟提示
-c.添加事件对话框，使用Calendar对象，显示当前事件，可设定提醒的时间点
-d.在AndroidManifest.xml添加NoteClock注册
+a.在search.xml添加Button</br>
+b.在NoteList使用AlarmManager类，进行闹钟提示</br>
+c.添加事件对话框，使用Calendar对象，显示当前事件，可设定提醒的时间点</br>
+d.在AndroidManifest.xml添加NoteClock注册</br>
 ```
 search.xml
   <Button
@@ -292,8 +292,8 @@ search.xml
 ![闹钟2.jpg](https://i.loli.net/2019/05/14/5cda596c87fdb46948.jpg)
 ![闹钟3.jpg](https://i.loli.net/2019/05/14/5cda596c8b78567419.jpg)</br>
 ### 四、分享笔记</br>
-a.在list_context_menu.xml中添加item
-b.在NotesList.java的onContextItemSelected方法中添加share选项
+a.在list_context_menu.xml中添加item</br>
+b.在NotesList.java的onContextItemSelected方法中添加share选项</br>
 ```
 list_context_menu.xml
 <item android:id="@+id/context_share"
